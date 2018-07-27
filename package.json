@@ -37,6 +37,7 @@
     "gulp-clean-css": "^3.x.x",
     "gulp-filter": "^5.x.x",
     "gulp-git": "^2.x.x",
+    "gulp-gunzip": "^1.0.0",
     "gulp-if": "2.x.x",
     "gulp-imagemin": "3.x.x",
     "gulp-json-transform": "0.x.x",
@@ -51,9 +52,14 @@
     "gulp-zip": "^4.x.x",
     "require-dir": "0.x.x",
     "standard": "^10.0.2",
+    "string-replace-loader": "^2.1.1",
     "vinyl-named": "1.x.x",
     "webpack": "3.x.x",
     "webpack-stream": "3.x.x",
     "yargs": "^8.x.x"
+  },
+  "dependencies": {
+    "kuromoji": "^0.1.2",
+    "negaposi-analyzer-ja": "^1.0.1"
   }
 }

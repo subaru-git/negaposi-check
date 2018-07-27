@@ -1,3 +1,4 @@
+import path from "path"
 import gulp from 'gulp'
 import gulpif from 'gulp-if'
 import { log, colors } from 'gulp-util'
@@ -9,6 +10,8 @@ import livereload from 'gulp-livereload'
 import args from './lib/args'
 
 const ENV = args.production ? 'production' : 'development'
+const rootDir = path.join(__dirname, "..")
+const scriptsDir = `${rootDir}/app/scripts`
 
 gulp.task('scripts', (cb) => {
   return gulp.src('app/scripts/*.js')
@@ -30,6 +33,13 @@ gulp.task('scripts', (cb) => {
       ] : []),
       module: {
         rules: [{
+          test: /node_modules\/kuromoji\/src\/TokenizerBuilder\.js/,
+          loader: 'string-replace-loader',
+          query: {
+            search: './loader/NodeDictionaryLoader',
+            replace: `${scriptsDir}/shim/kuromoji/BrowserDictionaryLoader.js`
+          }
+        },{
           test: /\.js$/,
           loader: 'babel-loader'
         }]
