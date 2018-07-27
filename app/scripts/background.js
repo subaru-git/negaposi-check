@@ -6,11 +6,15 @@ chrome.runtime.onInstalled.addListener((details) => {
 })
 
 chrome.contextMenus.create({
+  "id": "negaposi-check",
   "title" : "ネガポジチェック",
   "type"  : "normal",
-  "contexts" : ["selection"],
-  "onclick" : (info, tab) => {
-    console.log(info.selectionText)
+  "contexts" : ["selection"]
+});
+
+chrome.contextMenus.onClicked.addListener(function(info, tab) {
+  if (info.menuItemId == "negaposi-check") {
+      console.log(info.selectionText);
   }
 });
 
