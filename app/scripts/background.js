@@ -1,22 +1,16 @@
 // Enable chromereload by uncommenting this line:
 // import 'chromereload/devonly'
 
-const kuromoji = require("kuromoji");
-const analyze = require("negaposi-analyzer-ja");
+import { builder } from 'kuromoji'
+import analyze from 'negaposi-analyzer-ja'
 
-chrome.runtime.onInstalled.addListener((details) => {
-  console.log('previousVersion', details.previousVersion)
-})
-
-let kuromojiObj;
+let tokenizer;
 !(() => {
-  kuromoji.builder({
-    dicPath : 'dict/'
-  }).build(function(error, _tokenizer) {
+  builder({dicPath : 'dict/'}).build((error, _tokenizer) => {
     if (error != null) {
         console.log(error);
     }
-    kuromojiObj = _tokenizer;
+    tokenizer = _tokenizer;
   })
 })();
 
@@ -29,9 +23,7 @@ chrome.contextMenus.create({
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId == "negaposi-check") {
-      const score = analyze(kuromojiObj.tokenize(info.selectionText));
+      const score = analyze(tokenizer.tokenize(info.selectionText));
       chrome.tabs.sendMessage(tab.id, {id: "negaposi-check", score: score, text: info.selectionText});
   }
 });
-
-console.log(`'Allo 'Allo! Event Page`)

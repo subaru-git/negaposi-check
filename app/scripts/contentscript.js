@@ -10,16 +10,17 @@ toast.style.padding = '10px';
 toast.style.fontWeight = 'bolder';
 document.body.insertBefore(toast, document.body.firstChild);
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.id === "negaposi-check") {
+chrome.runtime.onMessage.addListener(({id, score, text}, sender, sendResponse) => {
+  if (id === "negaposi-check") {
     let color = '#ffffff'
-    if (request.score < 0) {
+    if (score < 0) {
       color = '#ff0000'
     }
-    toast.innerHTML = `<div>input : ${request.text}</div><div style="color : ${color}">score : ${request.score}</div>`
+    toast.innerHTML = `<div>input : ${text}</div><div style="color : ${color}">score : ${score}</div>`
     toast.style.visibility = 'visible';
-    setTimeout(function() {
+    setTimeout(() => {
         toast.style.visibility = 'hidden';
     }, 3000);
+    sendResponse({});
   }
 });
