@@ -2,6 +2,10 @@
 
 check selection text negative / positive score
 
+## Demo
+
+![negaposi-check](resouces/demo.gif)
+
 ## Installation
 
 ```bash
