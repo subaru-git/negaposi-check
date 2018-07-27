@@ -8,10 +8,7 @@ chrome.runtime.onInstalled.addListener((details) => {
   console.log('previousVersion', details.previousVersion)
 })
 
-// kuromojiオブジェクト
 let kuromojiObj;
-
-// kuromojiオブジェクトの作成
 !(() => {
   kuromoji.builder({
     dicPath : 'dict/'
@@ -33,7 +30,7 @@ chrome.contextMenus.create({
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId == "negaposi-check") {
       const score = analyze(kuromojiObj.tokenize(info.selectionText));
-      console.log(score)
+      chrome.tabs.sendMessage(tab.id, {id: "negaposi-check", score: score, text: info.selectionText});
   }
 });
 

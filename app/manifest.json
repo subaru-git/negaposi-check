@@ -9,6 +9,10 @@
     "16": "images/icon-16.png",
     "128": "images/icon-128.png"
   },
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["scripts/contentscript.js"]
+  }],
   "background": {
     "scripts": [
       "scripts/background.js"
@@ -16,6 +20,6 @@
     "persistent": false
   },
   "permissions": [
-    "contextMenus"
+    "contextMenus", "tabs"
   ]
 }
